@@ -1,4 +1,3 @@
-import React from 'react';
 import { HistoryRecord } from '../hooks/useHistory';
 import { Trash2, ExternalLink } from 'lucide-react';
 import { clsx } from 'clsx';

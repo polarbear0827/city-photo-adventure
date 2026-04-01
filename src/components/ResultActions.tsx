@@ -1,4 +1,3 @@
-import React from 'react';
 import { Station } from '../data/StationData';
 import { ThemeColor } from '../data/ColorData';
 import { Map } from 'lucide-react';
