@@ -17,7 +17,7 @@ export function SlotSpinner<T>({ items, renderItem, isSpinning, onSpinEnd, heigh
   // Assuming about 20-30 items, 5 copies = 100-150 items.
   const displayItems = [...items, ...items, ...items, ...items, ...items];
   
-  const onSpinEndRef = React.useRef(onSpinEnd);
+  const onSpinEndRef = useRef(onSpinEnd);
   
   useEffect(() => {
     onSpinEndRef.current = onSpinEnd;
