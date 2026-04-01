@@ -5,17 +5,20 @@ import { HistoryLog } from './components/HistoryLog';
 import { useHistory } from './hooks/useHistory';
 import { Station } from './data/StationData';
 import { ThemeColor } from './data/ColorData';
+import { Shape } from './data/ShapeData'; // 新增形狀資料
 import { Camera } from 'lucide-react';
 
 export default function App() {
   const { history, addRecord, toggleCompleted, deleteRecord, clearHistory } = useHistory();
-  const [currentStation, setCurrentStation] = useState<Station | null>(null);
-  const [currentColor, setCurrentColor] = useState<ThemeColor | null>(null);
+  const [lastResult, setLastResult] = useState<{
+    station?: Station;
+    colors?: ThemeColor[];
+    shape?: Shape;
+  } | null>(null);
 
-  const handleResult = useCallback((station: Station, color: ThemeColor) => {
-    setCurrentStation(station);
-    setCurrentColor(color);
-    addRecord(station, color);
+  const handleResult = useCallback((station?: Station, colors?: ThemeColor[], shape?: Shape) => {
+    setLastResult({ station, colors, shape });
+    addRecord(station, colors, shape);
   }, [addRecord]);
 
   return (
@@ -46,11 +49,15 @@ export default function App() {
       {/* Main Content */}
       <SlotMachine onResult={handleResult} />
 
-      <div className="w-full max-w-2xl px-4 mt-2 h-[120px] flex items-center justify-center">
-        {currentStation && currentColor ? (
-          <ResultActions station={currentStation} color={currentColor} />
+      <div className="w-full max-w-4xl px-4 mt-2 h-auto min-h-[120px] flex items-center justify-center">
+        {lastResult ? (
+          <ResultActions 
+            station={lastResult.station} 
+            colors={lastResult.colors} 
+            shape={lastResult.shape} 
+          />
         ) : (
-          <div className="text-gray-500 font-medium">按下「雙重開抽」抽取本次的挑戰！</div>
+          <div className="text-gray-500 font-medium">開啟開關並按下「開啟挑戰冒險」！</div>
         )}
       </div>
 

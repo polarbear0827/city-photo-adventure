@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react';
 import { Station } from '../data/StationData';
 import { ThemeColor } from '../data/ColorData';
+import { Shape } from '../data/ShapeData';
 
 export interface HistoryRecord {
   id: string;
   timestamp: number;
-  station: Station;
-  color: ThemeColor;
+  station?: Station;
+  colors?: ThemeColor[];
+  shape?: Shape;
   completed: boolean;
 }
 
@@ -29,13 +31,13 @@ export function useHistory() {
     }
   }, [history]);
 
-  const addRecord = (station: Station, color: ThemeColor) => {
+  const addRecord = (station?: Station, colors?: ThemeColor[], shape?: Shape) => {
     const newRecord: HistoryRecord = {
-      // 替換 randomUUID 以提升所有舊型瀏覽器與本地非 HTTPS 環境相容性
       id: Date.now().toString(36) + Math.random().toString(36).substring(2),
       timestamp: Date.now(),
       station,
-      color,
+      colors,
+      shape,
       completed: false
     };
     setHistory((prev) => [newRecord, ...prev]);
