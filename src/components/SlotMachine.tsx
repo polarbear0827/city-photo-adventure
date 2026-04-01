@@ -1,8 +1,8 @@
-import React, { useRef, useState } from 'react';
-import { Station, STATION_DATA } from '../data/StationData';
+import React, { useRef, useState, useEffect } from 'react';
+import { Station, STATION_REGIONS, RegionKey } from '../data/StationData';
 import { ThemeColor, COLOR_DATA } from '../data/ColorData';
 import { SlotSpinner } from './SlotSpinner';
-import { MapPin, Palette, Zap } from 'lucide-react';
+import { MapPin, Palette, Zap, Map as MapIcon } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
 interface SlotMachineProps {
@@ -10,12 +10,15 @@ interface SlotMachineProps {
 }
 
 export function SlotMachine({ onResult }: SlotMachineProps) {
+  const [activeRegion, setActiveRegion] = useState<RegionKey>('north');
   const [isStationSpinning, setStationSpinning] = useState(false);
   const [isColorSpinning, setColorSpinning] = useState(false);
   
   const stationRef = useRef<Station | null>(null);
   const colorRef = useRef<ThemeColor | null>(null);
   const pendingCheck = useRef(false);
+
+  const stations = STATION_REGIONS[activeRegion].stations;
 
   const startStationSpin = () => {
     pendingCheck.current = true;
@@ -43,8 +46,7 @@ export function SlotMachine({ onResult }: SlotMachineProps) {
     setColorSpinning(false);
   };
 
-  // 監聽拉霸狀態變更，當兩者都停下且有觸發 spin 才送出結果
-  React.useEffect(() => {
+  useEffect(() => {
     if (pendingCheck.current && !isStationSpinning && !isColorSpinning && stationRef.current && colorRef.current) {
       pendingCheck.current = false;
       confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
@@ -53,7 +55,26 @@ export function SlotMachine({ onResult }: SlotMachineProps) {
   }, [isStationSpinning, isColorSpinning, onResult]);
 
   return (
-    <div className="flex flex-col items-center gap-8 w-full max-w-2xl px-4 py-8">
+    <div className="flex flex-col items-center gap-6 w-full max-w-2xl px-4 py-8">
+      {/* 分類切換按鈕 */}
+      <div className="flex flex-wrap justify-center gap-2 p-1 bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 mb-2">
+        {(Object.keys(STATION_REGIONS) as RegionKey[]).map((key) => (
+          <button
+            key={key}
+            onClick={() => setActiveRegion(key)}
+            className={`
+              flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-bold transition-all duration-300
+              ${activeRegion === key 
+                ? 'bg-primary text-white shadow-[0_0_15px_rgba(99,102,241,0.4)]' 
+                : 'text-zinc-400 hover:text-white hover:bg-white/5'}
+            `}
+          >
+            <MapIcon size={16} />
+            {STATION_REGIONS[key].displayName}
+          </button>
+        ))}
+      </div>
+
       <div className="flex w-full gap-4 md:gap-8 justify-center">
         {/* Station Slot */}
         <div className="flex-1 flex flex-col items-center gap-4">
@@ -62,13 +83,13 @@ export function SlotMachine({ onResult }: SlotMachineProps) {
             <span>捷運站點</span>
           </div>
           <SlotSpinner
-            items={STATION_DATA}
+            items={stations}
             isSpinning={isStationSpinning}
             onSpinEnd={handleStationEnd}
             height={80}
             renderItem={(station) => (
               <span 
-                className="px-3 py-1 rounded-full text-base md:text-xl text-white shadow"
+                className="px-3 py-1 rounded-full text-base md:text-xl text-white shadow font-bold"
                 style={{ backgroundColor: station.lineColor }}
               >
                 {station.name}
@@ -97,7 +118,7 @@ export function SlotMachine({ onResult }: SlotMachineProps) {
             height={80}
             renderItem={(color) => (
               <span 
-                className="px-4 py-1 rounded-lg text-lg md:text-2xl shadow border border-white/20"
+                className="px-4 py-1 rounded-lg text-lg md:text-2xl shadow border border-white/20 font-bold"
                 style={{ backgroundColor: color.hex, color: color.textColor }}
               >
                 {color.name}

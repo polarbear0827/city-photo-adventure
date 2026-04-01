@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import { SlotMachine } from './components/SlotMachine';
 import { ResultActions } from './components/ResultActions';
 import { HistoryLog } from './components/HistoryLog';
