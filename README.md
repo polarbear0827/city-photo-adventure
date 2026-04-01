@@ -2,6 +2,8 @@
 
 一個針對雙北及桃園捷運、顏色的隨機抽取 Web 應用程式 (SPA)。每次的抽取結果都會指派一個「站點」與「基礎色」攝影任務，你可以用系統自動紀錄並前往探索周邊街景！
 
+👉 **[立即點此開始冒險！(線上預覽)](https://polarbear0827.github.io/city-photo-adventure/)**
+
 ## ✨ 核心特色
 - **現代深色體驗**: 極簡風深夜設計，操作按鈕友善適配行動裝置單手握持體驗。
 - **真實隨機輪盤**: 導入 `Framer Motion` 客製化拉動阻尼與反彈，享受身歷其境的「雙重抽卡」物理極限回饋感。
@@ -19,7 +21,8 @@
 
 ```bash
 # 1. 將此專案 Clone 並且進入資料夾內
-
+git clone https://github.com/polarbear0827/city-photo-adventure.git
+cd city-photo-adventure
 # 2. 安裝相依賴套件
 npm install
 
