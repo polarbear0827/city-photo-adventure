@@ -23,6 +23,7 @@
 # 1. 將此專案 Clone 並且進入資料夾內
 git clone https://github.com/polarbear0827/city-photo-adventure.git
 cd city-photo-adventure
+
 # 2. 安裝相依賴套件
 npm install
 
