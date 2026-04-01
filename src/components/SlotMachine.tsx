@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { Station, STATION_REGIONS, RegionKey } from '../data/StationData';
 import { ThemeColor, COLOR_DATA } from '../data/ColorData';
 import { SlotSpinner } from './SlotSpinner';
