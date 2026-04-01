@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="public/banner.png" alt="City Photo Adventure Banner" width="100%">
+</p>
+
 # 城市攝影冒險 (City Photo Adventure) 🚇 📸
 
 一個針對雙北及桃園捷運、顏色的隨機抽取 Web 應用程式 (SPA)。每次的抽取結果都會指派一個「站點」與「基礎色」攝影任務，你可以用系統自動紀錄並前往探索周邊街景！

@@ -28,6 +28,16 @@ export default function App() {
             城市攝影冒險
           </h1>
         </div>
+        
+        {/* Banner 橫幅展示 */}
+        <div className="w-full max-w-lg mt-6 mb-4 rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/5 group">
+          <img 
+            src="banner.png" 
+            alt="City Photo Adventure Banner" 
+            className="w-full h-auto object-cover transform transition-transform duration-700 group-hover:scale-105"
+          />
+        </div>
+
         <p className="text-gray-400 text-sm md:text-base font-medium tracking-widest uppercase mt-1">
           City Photo Adventure
         </p>
